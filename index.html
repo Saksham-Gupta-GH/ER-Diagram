@@ -575,7 +575,7 @@
 
             let rowsHtml = '';
             t.columns.forEach(c => {
-                const fkRel = dbData.relations.find(r => r.from === t.name && r.col === c.name);
+                const fkRel = dbData.relations.find(r => r.from === t.name && r.fromColumn === c.name);
 
                 let badgesHtml = '';
                 if (c.is_pk) {
