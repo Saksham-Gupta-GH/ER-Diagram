@@ -468,17 +468,26 @@
                 }
             });
 
-            // Add table definitions with Primary Keys only for connected tables
+            // Add table definitions with Primary and Foreign Keys only for connected tables
             connectedTables.forEach(tableName => {
                 const tableInfo = dbData.tables[tableName];
                 if (tableInfo && tableInfo.columns) {
-                    const pks = tableInfo.columns.filter(c => c.is_pk);
-                    if (pks.length > 0) {
+                    const fkCols = new Set();
+                    dbData.relations.forEach(r => {
+                        if (r.from === tableName) fkCols.add(r.fromColumn);
+                    });
+
+                    const specialCols = tableInfo.columns.filter(c => c.is_pk || fkCols.has(c.name));
+                    
+                    if (specialCols.length > 0) {
                         diagramStr += `  ${tableName} {\n`;
-                        pks.forEach(pk => {
-                            let typeStr = pk.type.replace(/[^a-zA-Z0-9_]/g, '');
+                        specialCols.forEach(col => {
+                            let typeStr = col.type.replace(/[^a-zA-Z0-9_]/g, '');
                             if (!typeStr) typeStr = 'type';
-                            diagramStr += `    ${typeStr} ${pk.name} PK\n`;
+                            let keyLabel = [];
+                            if (col.is_pk) keyLabel.push("PK");
+                            if (fkCols.has(col.name)) keyLabel.push("FK");
+                            diagramStr += `    ${typeStr} ${col.name} ${keyLabel.join(",")}\n`;
                         });
                         diagramStr += `  }\n`;
                     }
