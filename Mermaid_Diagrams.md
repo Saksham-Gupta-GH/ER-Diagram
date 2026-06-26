@@ -24,41 +24,6 @@ erDiagram
   parks ||--o{ staff_attendance_events : "has"
   users ||--o{ staff_attendance_events : "has"
   staff_shifts ||--o{ staff_attendance_events : "has"
-  OperatingHours {
-    integer operatingHourId PK
-  }
-  parks {
-    integer venueId PK
-  }
-  SpecialHours {
-    integer specialHourId PK
-  }
-  Areas {
-    integer areaId PK
-  }
-  role_uis {
-    integer role_id PK
-    integer ui_id PK
-  }
-  uis {
-    integer ui_id PK
-  }
-  permissions {
-    integer permission_id PK
-  }
-  role_permissions {
-    integer role_id PK
-    integer permission_id PK
-  }
-  staff_shifts {
-    integer staff_shift_id PK
-  }
-  users {
-    integer user_id PK
-  }
-  staff_attendance_events {
-    integer attendance_event_id PK
-  }
 ```
 
 ### Isolated Tables
@@ -122,57 +87,6 @@ erDiagram
   ReservationMasters ||--o{ ReservationParticipants : "has"
   Reservations ||--o{ ReservationParticipants : "has"
   SessionSlots ||--o{ Reservations : "has"
-  ExperienceDetails {
-    integer productDetailsId PK
-  }
-  Experiences {
-    integer productId PK
-  }
-  SessionPlans {
-    integer scheduleId PK
-  }
-  SessionSlots {
-    integer slotId PK
-  }
-  Reservations {
-    integer bookingId PK
-  }
-  ReservationMasters {
-    integer bookingMasterId PK
-  }
-  OrderHistories {
-    integer orderHistoryId PK
-  }
-  BookingPortalAppearances {
-    integer appearanceId PK
-  }
-  BookingPortals {
-    integer checkoutId PK
-  }
-  BookingPortalOptions {
-    integer optionsId PK
-  }
-  BookingPortalSections {
-    integer sectionId PK
-  }
-  BookingPortalSectionExperiences {
-    integer sectionActivityId PK
-  }
-  BookingPortalExtraRules {
-    integer addonRuleId PK
-  }
-  BookingPortalPublishes {
-    integer publishId PK
-  }
-  CapacityHolds {
-    integer holdId PK
-  }
-  PublicBookingPortalSessions {
-    charactervarying sessionId PK
-  }
-  ReservationParticipants {
-    integer bookingParticipantId PK
-  }
 ```
 
 ### Isolated Tables
@@ -196,18 +110,6 @@ erDiagram
   pos_templates ||--o{ pos_devices : "has"
   pos_templates ||--o{ pos_preset_sections : "has"
   pos_preset_sections ||--o{ pos_preset_section_products : "has"
-  pos_devices {
-    integer pos_device_id PK
-  }
-  pos_templates {
-    integer pos_template_id PK
-  }
-  pos_preset_sections {
-    integer pos_section_id PK
-  }
-  pos_preset_section_products {
-    integer id PK
-  }
 ```
 
 ### Isolated Tables
@@ -233,24 +135,6 @@ erDiagram
   payment_providers ||--o{ saved_payment_methods : "has"
   payment_providers ||--o{ recurring_payment_profiles : "has"
   recurring_payment_profiles ||--o{ subscription_invoices : "has"
-  payment_provider_credentials {
-    integer credential_id PK
-  }
-  payment_providers {
-    integer provider_id PK
-  }
-  location_payment_settings {
-    integer setting_id PK
-  }
-  saved_payment_methods {
-    integer saved_payment_method_id PK
-  }
-  recurring_payment_profiles {
-    integer recurring_profile_id PK
-  }
-  subscription_invoices {
-    integer subscription_invoice_id PK
-  }
 ```
 
 ### Isolated Tables
@@ -287,24 +171,6 @@ erDiagram
   Visitors ||--o{ CustomerFormSubmissions : "has"
   CustomerFormSubmissions ||--o{ CustomerFormResponses : "has"
   CustomerFormFields ||--o{ CustomerFormResponses : "has"
-  VisitorRelationships {
-    integer guestRelationshipId PK
-  }
-  Visitors {
-    integer guestId PK
-  }
-  CustomerFormFields {
-    integer customerFormFieldId PK
-  }
-  CustomerForms {
-    integer customerFormId PK
-  }
-  CustomerFormSubmissions {
-    integer customerFormSubmissionId PK
-  }
-  CustomerFormResponses {
-    integer customerFormResponseId PK
-  }
 ```
 
 ### Isolated Tables
@@ -332,27 +198,6 @@ erDiagram
   VisitorWaiverSignatures ||--o{ WaiverFormResponses : "has"
   WaiverVersions ||--o{ WaiverFormResponses : "has"
   WaiverFormFields ||--o{ WaiverFormResponses : "has"
-  VisitorWaiverSignatures {
-    integer id PK
-  }
-  waivers {
-    integer waiverId PK
-  }
-  WaiverPageSettings {
-    integer waiverPageSettingsId PK
-  }
-  WaiverCoverages {
-    integer waiverCoverageId PK
-  }
-  WaiverVersions {
-    integer waiverVersionId PK
-  }
-  WaiverFormFields {
-    integer waiverFormFieldId PK
-  }
-  WaiverFormResponses {
-    integer waiverFormResponseId PK
-  }
 ```
 
 ### Isolated Tables
@@ -386,69 +231,6 @@ erDiagram
   crm_marketing_templates ||--o{ crm_marketing_campaign_audience_jobs : "has"
   crm_marketing_calendar_plans ||--o{ crm_marketing_calendar_rules : "has"
   crm_marketing_calendar_plans ||--o{ crm_marketing_calendar_overrides : "has"
-  crm_transactional_delivery_events {
-    uuid id PK
-  }
-  crm_transactional_messages {
-    uuid id PK
-  }
-  crm_email_domain_routes {
-    uuid id PK
-  }
-  crm_email_domains {
-    uuid id PK
-  }
-  crm_marketing_messages {
-    uuid id PK
-  }
-  crm_marketing_campaigns {
-    uuid id PK
-  }
-  crm_marketing_templates {
-    uuid id PK
-  }
-  crm_marketing_delivery_events {
-    uuid id PK
-  }
-  crm_marketing_assets {
-    uuid id PK
-  }
-  crm_marketing_folders {
-    uuid id PK
-  }
-  crm_marketing_template_revisions {
-    uuid id PK
-  }
-  crm_marketing_suppressions {
-    uuid id PK
-  }
-  crm_contact_identities {
-    uuid id PK
-  }
-  crm_contacts {
-    uuid id PK
-  }
-  crm_segment_members {
-    uuid id PK
-  }
-  crm_segments {
-    uuid id PK
-  }
-  crm_contact_notes {
-    uuid id PK
-  }
-  crm_marketing_campaign_audience_jobs {
-    uuid id PK
-  }
-  crm_marketing_calendar_rules {
-    uuid id PK
-  }
-  crm_marketing_calendar_plans {
-    uuid id PK
-  }
-  crm_marketing_calendar_overrides {
-    uuid id PK
-  }
 ```
 
 ### Isolated Tables
@@ -474,24 +256,6 @@ erDiagram
   crm_automation_workflows ||--o{ crm_automation_enrollment_jobs : "has"
   crm_provider_configs ||--o{ crm_sender_warmup_profiles : "has"
   crm_sender_warmup_profiles ||--o{ crm_sender_warmup_events : "has"
-  crm_automation_runs {
-    uuid id PK
-  }
-  crm_automation_workflows {
-    uuid id PK
-  }
-  crm_automation_enrollment_jobs {
-    uuid id PK
-  }
-  crm_sender_warmup_profiles {
-    uuid id PK
-  }
-  crm_provider_configs {
-    uuid id PK
-  }
-  crm_sender_warmup_events {
-    uuid id PK
-  }
 ```
 
 ### Isolated Tables
