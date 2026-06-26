@@ -139,7 +139,6 @@
             font-weight: 600;
         }
 
-        /* Diagram Container */
         #diagram-container {
             padding: 0;
             background-color: #ffffff;
@@ -149,6 +148,8 @@
             border-radius: 12px;
             margin: 24px 0 40px 0;
             height: 600px;
+            min-height: 600px;
+            flex-shrink: 0;
             display: block;
             overflow: hidden;
             position: relative;
@@ -436,6 +437,23 @@
                 }
             });
 
+            // Add table definitions with Primary Keys only for connected tables
+            connectedTables.forEach(tableName => {
+                const tableInfo = dbData.tables[tableName];
+                if (tableInfo && tableInfo.columns) {
+                    const pks = tableInfo.columns.filter(c => c.is_pk);
+                    if (pks.length > 0) {
+                        diagramStr += `  ${tableName} {\n`;
+                        pks.forEach(pk => {
+                            let typeStr = pk.type.replace(/[^a-zA-Z0-9_]/g, '');
+                            if (!typeStr) typeStr = 'type';
+                            diagramStr += `    ${typeStr} ${pk.name} PK\n`;
+                        });
+                        diagramStr += `  }\n`;
+                    }
+                }
+            });
+
             const diagContainer = document.getElementById('diagram-container');
 
             if (renderedLinks.size > 0) {
@@ -452,7 +470,7 @@
                         svgPanZoom(svgElement, {
                             zoomEnabled: true,
                             controlIconsEnabled: true,
-                            fit: true,
+                            fit: false,
                             center: true,
                             minZoom: 0.1,
                             maxZoom: 10
@@ -613,7 +631,7 @@
                 await mermaid.run();
                 const svgElement = diagContainer.querySelector('svg');
                 if (svgElement) {
-                    svgPanZoom(svgElement, { zoomEnabled: true, controlIconsEnabled: true, fit: true, center: true, minZoom: 0.1, maxZoom: 10 });
+                    svgPanZoom(svgElement, { zoomEnabled: true, controlIconsEnabled: true, fit: false, center: true, minZoom: 0.1, maxZoom: 10 });
                 }
             } catch (e) {
                 console.error(e);
