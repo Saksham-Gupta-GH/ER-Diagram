@@ -11,18 +11,18 @@ This document contains the ER diagrams (in Mermaid syntax) and lists the "Isolat
 ### Diagram
 ```mermaid
 erDiagram
+  uis ||--o{ role_uis : "has"
+  uis ||--o{ permissions : "has"
+  uis ||--o{ uis : "has"
+  users ||--o{ staff_shifts : "has"
+  users ||--o{ staff_attendance_events : "has"
+  Areas ||--o{ staff_shifts : "has"
   parks ||--o{ OperatingHours : "has"
   parks ||--o{ SpecialHours : "has"
   parks ||--o{ Areas : "has"
-  uis ||--o{ role_uis : "has"
-  uis ||--o{ permissions : "has"
-  permissions ||--o{ role_permissions : "has"
-  uis ||--o{ uis : "has"
   parks ||--o{ staff_shifts : "has"
-  users ||--o{ staff_shifts : "has"
-  Areas ||--o{ staff_shifts : "has"
   parks ||--o{ staff_attendance_events : "has"
-  users ||--o{ staff_attendance_events : "has"
+  permissions ||--o{ role_permissions : "has"
   staff_shifts ||--o{ staff_attendance_events : "has"
 ```
 
@@ -43,6 +43,7 @@ These tables belong to the module but do not have formal Foreign Key constraints
 - `leave_requests`
 - `leave_types`
 - `location_geofences`
+- `location_permanent_delete_audits`
 - `location_scheduling_settings`
 - `manager_override_audits`
 - `member_accounts`
@@ -70,23 +71,23 @@ These tables belong to the module but do not have formal Foreign Key constraints
 erDiagram
   Experiences ||--o{ ExperienceDetails : "has"
   Experiences ||--o{ SessionPlans : "has"
+  Experiences ||--o{ BookingPortalSectionExperiences : "has"
+  Experiences ||--o{ BookingPortalExtraRules : "has"
   SessionPlans ||--o{ SessionSlots : "has"
+  SessionSlots ||--o{ CapacityHolds : "has"
+  SessionSlots ||--o{ Reservations : "has"
   ReservationMasters ||--o{ Reservations : "has"
+  ReservationMasters ||--o{ ReservationParticipants : "has"
   ReservationMasters ||--o{ OrderHistories : "has"
+  ReservationMasters ||--o{ PublicBookingPortalSessions : "has"
+  Reservations ||--o{ ReservationParticipants : "has"
   BookingPortals ||--o{ BookingPortalAppearances : "has"
   BookingPortals ||--o{ BookingPortalOptions : "has"
   BookingPortals ||--o{ BookingPortalSections : "has"
-  BookingPortalSections ||--o{ BookingPortalSectionExperiences : "has"
-  Experiences ||--o{ BookingPortalSectionExperiences : "has"
   BookingPortals ||--o{ BookingPortalExtraRules : "has"
-  Experiences ||--o{ BookingPortalExtraRules : "has"
   BookingPortals ||--o{ BookingPortalPublishes : "has"
-  SessionSlots ||--o{ CapacityHolds : "has"
   BookingPortals ||--o{ PublicBookingPortalSessions : "has"
-  ReservationMasters ||--o{ PublicBookingPortalSessions : "has"
-  ReservationMasters ||--o{ ReservationParticipants : "has"
-  Reservations ||--o{ ReservationParticipants : "has"
-  SessionSlots ||--o{ Reservations : "has"
+  BookingPortalSections ||--o{ BookingPortalSectionExperiences : "has"
 ```
 
 ### Isolated Tables
@@ -166,11 +167,11 @@ These tables belong to the module but do not have formal Foreign Key constraints
 ```mermaid
 erDiagram
   Visitors ||--o{ VisitorRelationships : "has"
+  Visitors ||--o{ CustomerFormSubmissions : "has"
   CustomerForms ||--o{ CustomerFormFields : "has"
   CustomerForms ||--o{ CustomerFormSubmissions : "has"
-  Visitors ||--o{ CustomerFormSubmissions : "has"
-  CustomerFormSubmissions ||--o{ CustomerFormResponses : "has"
   CustomerFormFields ||--o{ CustomerFormResponses : "has"
+  CustomerFormSubmissions ||--o{ CustomerFormResponses : "has"
 ```
 
 ### Isolated Tables
@@ -191,10 +192,10 @@ These tables belong to the module but do not have formal Foreign Key constraints
 erDiagram
   waivers ||--o{ VisitorWaiverSignatures : "has"
   waivers ||--o{ WaiverPageSettings : "has"
-  VisitorWaiverSignatures ||--o{ WaiverCoverages : "has"
   waivers ||--o{ WaiverCoverages : "has"
   waivers ||--o{ WaiverVersions : "has"
   waivers ||--o{ WaiverFormFields : "has"
+  VisitorWaiverSignatures ||--o{ WaiverCoverages : "has"
   VisitorWaiverSignatures ||--o{ WaiverFormResponses : "has"
   WaiverVersions ||--o{ WaiverFormResponses : "has"
   WaiverFormFields ||--o{ WaiverFormResponses : "has"
@@ -215,20 +216,20 @@ These tables belong to the module but do not have formal Foreign Key constraints
 erDiagram
   crm_transactional_messages ||--o{ crm_transactional_delivery_events : "has"
   crm_email_domains ||--o{ crm_email_domain_routes : "has"
-  crm_marketing_campaigns ||--o{ crm_marketing_messages : "has"
-  crm_marketing_templates ||--o{ crm_marketing_messages : "has"
-  crm_marketing_messages ||--o{ crm_marketing_delivery_events : "has"
-  crm_marketing_campaigns ||--o{ crm_marketing_delivery_events : "has"
   crm_marketing_folders ||--o{ crm_marketing_assets : "has"
+  crm_marketing_templates ||--o{ crm_marketing_messages : "has"
   crm_marketing_templates ||--o{ crm_marketing_template_revisions : "has"
+  crm_marketing_templates ||--o{ crm_marketing_campaign_audience_jobs : "has"
+  crm_marketing_campaigns ||--o{ crm_marketing_messages : "has"
+  crm_marketing_campaigns ||--o{ crm_marketing_delivery_events : "has"
   crm_marketing_campaigns ||--o{ crm_marketing_suppressions : "has"
+  crm_marketing_campaigns ||--o{ crm_marketing_campaign_audience_jobs : "has"
+  crm_marketing_messages ||--o{ crm_marketing_delivery_events : "has"
   crm_marketing_messages ||--o{ crm_marketing_suppressions : "has"
   crm_contacts ||--o{ crm_contact_identities : "has"
-  crm_segments ||--o{ crm_segment_members : "has"
   crm_contacts ||--o{ crm_segment_members : "has"
   crm_contacts ||--o{ crm_contact_notes : "has"
-  crm_marketing_campaigns ||--o{ crm_marketing_campaign_audience_jobs : "has"
-  crm_marketing_templates ||--o{ crm_marketing_campaign_audience_jobs : "has"
+  crm_segments ||--o{ crm_segment_members : "has"
   crm_marketing_calendar_plans ||--o{ crm_marketing_calendar_rules : "has"
   crm_marketing_calendar_plans ||--o{ crm_marketing_calendar_overrides : "has"
 ```
@@ -252,9 +253,9 @@ These tables belong to the module but do not have formal Foreign Key constraints
 ### Diagram
 ```mermaid
 erDiagram
+  crm_provider_configs ||--o{ crm_sender_warmup_profiles : "has"
   crm_automation_workflows ||--o{ crm_automation_runs : "has"
   crm_automation_workflows ||--o{ crm_automation_enrollment_jobs : "has"
-  crm_provider_configs ||--o{ crm_sender_warmup_profiles : "has"
   crm_sender_warmup_profiles ||--o{ crm_sender_warmup_events : "has"
 ```
 
