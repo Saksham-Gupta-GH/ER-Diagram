@@ -1,0 +1,24 @@
+{
+  "name": "er-diagram",
+  "version": "1.0.0",
+  "description": "An interactive, web-based tool for visualizing and exploring PostgreSQL database schemas. This tool automatically groups database tables into logical modules and generates interactive Mermaid ER diagrams.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Saksham-Gupta-GH/ER-Diagram.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Saksham-Gupta-GH/ER-Diagram/issues"
+  },
+  "homepage": "https://github.com/Saksham-Gupta-GH/ER-Diagram#readme",
+  "dependencies": {
+    "pg": "^8.22.0"
+  }
+}
