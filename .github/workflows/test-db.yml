@@ -1,0 +1,7 @@
+name: Test DB
+on: [workflow_dispatch]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: nc -vz movira-postgres.czmmae6y80d2.ap-south-1.rds.amazonaws.com 5432 || echo "Failed"
